@@ -1,4 +1,4 @@
-package com.maxBlog.BlogApp.services;
+package com.maxBlog.BlogApp.services.blog;
 
 import com.maxBlog.BlogApp.entities.BlogEntity;
 import com.maxBlog.BlogApp.repositories.BlogRepository;
@@ -14,6 +14,7 @@ public class BlogServices {
 
     private final BlogRepository blogRepository;
 
+   // Constructor Injection
     public BlogServices(BlogRepository blogRepository){
         this.blogRepository = blogRepository;
     }
@@ -30,6 +31,7 @@ public class BlogServices {
     public List<BlogEntity> getAllBlogs(){
         return blogRepository.findAll();
     }
+
     // Service to Update a Blog Entity
     public Optional<BlogEntity> updateBlog(@PathVariable String id, @RequestBody BlogEntity blog) {
         Optional<BlogEntity> blogExist = blogRepository.findById(id);
@@ -56,5 +58,4 @@ public class BlogServices {
             return Optional.empty();
         }
     }
-
 }
