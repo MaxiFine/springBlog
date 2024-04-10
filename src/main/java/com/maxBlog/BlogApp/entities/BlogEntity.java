@@ -1,9 +1,9 @@
 package com.maxBlog.BlogApp.entities;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Data
 @Builder
@@ -18,5 +18,14 @@ public class BlogEntity {
 
     private String title;
     private String text;
-    private String author;
+
+    // ForiegnKey for user that creates a blog
+    // join the user to the created blog
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User author;
+
+    // Blog can take many comments from any user
+    @OneToMany(mappedBy = "blog", cascade = CascadeType.ALL)
+    private List<CommentEntity> comments;
 }
