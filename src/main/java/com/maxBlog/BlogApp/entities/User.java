@@ -6,16 +6,18 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.List;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "user")
+@Table(name = "_user", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 public class User  implements UserDetails {
 
     @Id
@@ -30,9 +32,19 @@ public class User  implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    /*
+     Entity relationship for the user to be a foreign key in the
+     BlogEntity and the CommentEntity
+     so the "author" field here is what will be passed and
+     referenced in other entities.
+    */
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
+    private List<BlogEntity> blogEntities;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return List
+                .of(new SimpleGrantedAuthority(role.name()));
     }
 
     @Override

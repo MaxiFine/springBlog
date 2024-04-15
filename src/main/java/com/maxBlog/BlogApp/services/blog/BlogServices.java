@@ -41,7 +41,7 @@ public class BlogServices {
             BlogEntity blogObj = blogExist.get();
             blogObj.setTitle(blog.getTitle());
             blogObj.setText(blog.getText());
-            blogObj.setAuthor(blog.getAuthor());
+//            blogObj.setAuthor(blog.getAuthor());
             return Optional.of(blogRepository.save(blogObj));
         }else{
             return Optional.empty();
