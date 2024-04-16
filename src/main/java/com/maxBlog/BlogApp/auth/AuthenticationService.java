@@ -4,6 +4,7 @@ import com.maxBlog.BlogApp.authConfig.JwtService;
 import com.maxBlog.BlogApp.entities.Role;
 import com.maxBlog.BlogApp.entities.User;
 import com.maxBlog.BlogApp.repositories.UserRepository;
+import com.maxBlog.BlogApp.services.blog.ShareBlogService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,6 +19,7 @@ public class AuthenticationService {
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
+    private final ShareBlogService shareBlogService;
 
 
     public AuthenticationResponse register(RegisterRequest request){
@@ -30,6 +32,7 @@ public class AuthenticationService {
                 .build();
         repository.save(user);
         var jwtToken = jwtService.generateToken(user);
+        shareBlogService.shareBlog("maxwell.adomako@amalitech.com","Welcome","Hello");
         return AuthenticationResponse.builder()
                 .token(String.valueOf(jwtToken))
                 .build();
