@@ -1,9 +1,7 @@
-package com.maxBlog.BlogApp.controllers;
+package com.maxBlog.BlogApp.controllers.blog;
 
 import com.maxBlog.BlogApp.entities.BlogEntity;
-import com.maxBlog.BlogApp.repositories.BlogRepository;
-import com.maxBlog.BlogApp.services.BlogServices;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.maxBlog.BlogApp.services.blog.BlogServices;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -71,4 +69,3 @@ public class BlogController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
-
